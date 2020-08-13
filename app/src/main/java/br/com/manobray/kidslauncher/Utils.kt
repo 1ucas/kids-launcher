@@ -1,4 +1,4 @@
-package br.com.manobray.testelauncher
+package br.com.manobray.kidslauncher
 
 import android.widget.ImageView
 import com.bumptech.glide.Glide

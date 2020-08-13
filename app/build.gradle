@@ -7,7 +7,7 @@ android {
     buildToolsVersion "30.0.0"
 
     defaultConfig {
-        applicationId "br.com.manobray.testelauncher"
+        applicationId "br.com.manobray.kidslauncher"
         minSdkVersion 24
         targetSdkVersion 30
         versionCode 1

@@ -1,4 +1,4 @@
-package br.com.manobray.testelauncher
+package br.com.manobray.kidslauncher
 
 import android.view.LayoutInflater
 import android.view.View

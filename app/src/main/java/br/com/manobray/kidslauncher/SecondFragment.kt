@@ -1,13 +1,14 @@
-package br.com.manobray.testelauncher
+package br.com.manobray.kidslauncher
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_second.*
@@ -24,12 +25,13 @@ class SecondFragment : Fragment() {
 
     private val listaApps = listOf(
         AppToOpen("Gmail", "com.google.android.gm", "https://cdn.iconscout.com/icon/free/png-256/gmail-1-93415.png"),
-        AppToOpen("Photos", "com.google.android.apps.photos", "https://www.google.com/photos/about/static/images/ui/logo-photos.png")
+        AppToOpen("Photos", "com.google.android.apps.photos", "https://www.google.com/photos/about/static/images/ui/logo-photos.png"),
+        AppToOpen("Culto Domestico", "br.com.manobray.culto_domestico_app2", "https://lh3.googleusercontent.com/M6tYmPikdkMDOjJyisnkakhid-PA2YhTXDOiA2W3Q_WzGE5ri5vC11VrX0IUcJnjNgw=s360")
     )
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_second, container, false)
@@ -42,7 +44,7 @@ class SecondFragment : Fragment() {
             findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
         }
 
-        viewManager = GridLayoutManager(this.context, 2)
+        viewManager = GridLayoutManager(context, 2)
 
         viewAdapter = AppItemAdapter(::openApp)
 
@@ -59,12 +61,19 @@ class SecondFragment : Fragment() {
 
         }
 
+        recyclerView.addItemDecoration(
+            DividerItemDecoration(context,
+                DividerItemDecoration.HORIZONTAL)
+        )
+        recyclerView.addItemDecoration(DividerItemDecoration(context,
+            DividerItemDecoration.VERTICAL))
+
         viewAdapter.submitList(listaApps)
     }
 
     private fun openApp(appToOpen: AppToOpen) {
         val launchIntent = this.context?.packageManager?.getLaunchIntentForPackage(appToOpen.app_package)
-        launchIntent?.let { startActivity(it) }
+        launchIntent?.let { startActivity(it) } ?: Toast.makeText(context, "Aplicativo não encontrado", Toast.LENGTH_SHORT).show()
     }
 }
 
